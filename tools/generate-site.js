@@ -3,7 +3,20 @@ const path = require("path");
 
 const root = path.resolve(__dirname, "..");
 
-const asset = (p) => `http://www.jy-clinic.com${p}`;
+const legacyVisualMap = {
+  "/common/img/main/section01_bgimg01.png": "/assets/img/about/chest_figureUl_img01.jpg",
+  "/common/img/main/section01_bgimg02.png": "/assets/img/about/panorama1_img04.jpg",
+  "/common/img/main/section01_bgimg03.png": "/assets/img/about/about_figureUl_img02.jpg",
+  "/common/img/main/section01_bgimg04.png": "/assets/img/about/chest_figureUl_img03.jpg",
+  "/common/img/main/section01_bgimg05.png": "/assets/img/about/medicalteam_art01_doctor_ydy.png",
+  "/common/img/main/section01_bgimg06.png": "/assets/img/about/about_figureUl_img06.jpg",
+  "/common/img/main/section01_bgimg07.png": "/assets/img/about/about_figureUl_img04.jpg",
+  "/common/img/main/section01_bgimg08.png": "/assets/img/about/guide_art01_bg.jpg",
+  "/common/img/main/section01_bgimg09.png": "/assets/img/about/panorama3_img01.jpg",
+  "/common/img/main/section01_bgimg01_m.png": "/assets/img/about/chest_figureUl_img01.jpg",
+};
+const asset = (p) => legacyVisualMap[p] || p;
+const pageHref = (groupKey, slug) => `/${groupKey}/${slug}.html`;
 const clinicName = "JY гоо сайхны мэс заслын эмнэлэг";
 const clinicAddress = "서울 강남구 도산대로 509, Gangnam District, 서울, South Korea, 06012";
 const clinicPhone = "+82 10-9897-7684";
@@ -12,7 +25,7 @@ const groups = [
   {
     key: "lifting",
     title: "Лифтинг",
-    href: "/lifting/lifting12.php",
+    href: "/lifting/lifting12.html",
     intro: "Нүүрний хэлбэр, арьсны уян хатан байдал, насжилтын өөрчлөлтийг хамтад нь үнэлж төлөвлөдөг лифтинг програм.",
     pages: [
       ["lifting12", "Лифтинг"],
@@ -32,7 +45,7 @@ const groups = [
   {
     key: "chest",
     title: "Хөх",
-    href: "/chest/chest07.php",
+    href: "/chest/chest07.html",
     intro: "Биеийн харьцаа, эдийн зузаан, хүссэн хэлбэрт тааруулсан хөхний мэс заслын төлөвлөлт.",
     pages: [
       ["chest07", "Хөхний өөх шилжүүлэн суулгах"],
@@ -47,7 +60,7 @@ const groups = [
   {
     key: "eye",
     title: "Нүд",
-    href: "/eye/eye01.php",
+    href: "/eye/eye01.html",
     intro: "Нүдний хэлбэр, зовхины зузаан, булчингийн хүчийг харгалзан байгалийн шугамтай болгоно.",
     pages: [
       ["eye01", "Self-line нүдний мэс засал"],
@@ -62,7 +75,7 @@ const groups = [
   {
     key: "nose",
     title: "Хамар",
-    href: "/nose/nose01.php",
+    href: "/nose/nose01.html",
     intro: "Нүүрний төвийн тэнцвэрийг хадгалсан, өөрт зохицсон хамрын хэлбэрийн төлөвлөлт.",
     pages: [
       ["nose01", "Эмэгтэй High-ko"],
@@ -76,14 +89,14 @@ const groups = [
   {
     key: "hair",
     title: "Үс шилжүүлэн суулгах",
-    href: "/hair/hair01.php",
+    href: "/hair/hair01.html",
     intro: "Үсний шугам, нягтрал, донор хэсгийг нарийвчлан тооцсон байгалийн үр дүнд чиглэнэ.",
     pages: [["hair01", "Үс шилжүүлэн суулгах"]],
   },
   {
     key: "body",
     title: "Биеийн хэлбэр",
-    href: "/body/body01.php",
+    href: "/body/body01.html",
     intro: "Өөхний тархалт, арьсны чанга байдал, биеийн пропорцыг хамтад нь засах контурын програм.",
     pages: [
       ["body01", "Fix өөх соруулах"],
@@ -95,14 +108,14 @@ const groups = [
   {
     key: "ultherapy",
     title: "Ultherapy",
-    href: "/ultherapy/ultherapy01.php",
+    href: "/ultherapy/ultherapy01.html",
     intro: "Арьсны гүн давхаргад чиглэсэн энерги ашиглан чангаруулах, өргөх non-surgical програм.",
     pages: [["ultherapy01", "Ultherapy Prime"]],
   },
   {
     key: "company",
     title: "Эмнэлгийн тухай",
-    href: "/company/about.php",
+    href: "/company/about.html",
     intro: `${clinicName} нь нарийн оношилгоо, хувь хүнд тохирсон төлөвлөгөө, дараах арчилгааг нэг урсгалаар санал болгодог.`,
     pages: [
       ["about", "JY танилцуулга"],
@@ -115,7 +128,7 @@ const groups = [
   {
     key: "community",
     title: "Нийгэмлэг",
-    href: "/community/reservation.php",
+    href: "/community/reservation.html",
     intro: "Онлайн зөвлөгөө, мэдээ, бодит сэтгэгдэл болон өмнө/дараах мэдээллийг нэг дороос үзнэ үү.",
     pages: [
       ["reservation", "Онлайн зөвлөгөө захиалах"],
@@ -129,7 +142,7 @@ const groups = [
   {
     key: "other",
     title: "Бодлого",
-    href: "/other/other01.php",
+    href: "/other/other01.html",
     intro: "Хувийн мэдээлэл болон имэйл цуглуулахтай холбоотой бодлого.",
     pages: [
       ["other01", "Хувийн мэдээллийн бодлого"],
@@ -141,7 +154,7 @@ const groups = [
 const pageMeta = new Map();
 for (const group of groups) {
   for (const [slug, title] of group.pages) {
-    const href = `/${group.key}/${slug}.php`;
+    const href = pageHref(group.key, slug);
     pageMeta.set(href, { group, slug, title, href });
   }
 }
@@ -308,6 +321,14 @@ function ensureDir(file) {
   fs.mkdirSync(path.dirname(file), { recursive: true });
 }
 
+function replaceLegacyAssetUrls(content) {
+  return Object.entries(legacyVisualMap).reduce((next, [legacyPath, localPath]) => {
+    return next
+      .replaceAll(`http://www.jy-clinic.com${legacyPath}`, localPath)
+      .replaceAll(legacyPath, localPath);
+  }, content);
+}
+
 function nav(activeKey) {
   return groups
     .filter((g) => !["other", "community"].includes(g.key))
@@ -316,7 +337,7 @@ function nav(activeKey) {
         <a href="${g.href}">${g.title}</a>
         <div class="mega">
           ${g.pages
-            .map(([slug, title]) => `<a href="/${g.key}/${slug}.php">${title}</a>`)
+            .map(([slug, title]) => `<a href="${pageHref(g.key, slug)}">${title}</a>`)
             .join("")}
         </div>
       </li>`
@@ -327,7 +348,7 @@ function nav(activeKey) {
 function subnav(group, currentHref) {
   return group.pages
     .map(([slug, title]) => {
-      const href = `/${group.key}/${slug}.php`;
+      const href = pageHref(group.key, slug);
       return `<a class="${href === currentHref ? "active" : ""}" href="${href}">${title}</a>`;
     })
     .join("");
@@ -376,8 +397,8 @@ function layout(meta, body, isHome = false) {
       <p>Холбоо барих: <a href="tel:+821098977684">${clinicPhone}</a></p>
     </div>
     <div class="footer-links">
-      <a href="/other/other01.php">Хувийн мэдээллийн бодлого</a>
-      <a href="/other/other02.php">Имэйл цуглуулах татгалзал</a>
+      <a href="/other/other01.html">Хувийн мэдээллийн бодлого</a>
+      <a href="/other/other02.html">Имэйл цуглуулах татгалзал</a>
     </div>
   </footer>
   <script src="/assets/js/site.js"></script>
@@ -1018,10 +1039,17 @@ function write(file, content) {
   fs.writeFileSync(target, content, "utf8");
 }
 
-write("assets/css/style.css", css + detailCss + colorHarmonyCss + marqueeCss + mobileSliderCss + brandingCss + purpleThemeCss + aboutCss + medicalCss + multiDoctorCss + panoramaCss + guideCss + liftingMainCss + mobileMenuCss + modernSiteCss + modernUpgradeCss + mobileAccordionCss + heroRedesignCss + mobileMenuRedesignCss + heroCardStackCss + heroMobileScrollCss + heroCarouselCss + quickReviewCss + menuOverlayFixCss + reviewShowcaseCss + quickContactCss + reviewPurpleCss + quickContactMobileCss);
+function redirects() {
+  return [...pageMeta.values()]
+    .map((meta) => `/${meta.group.key}/${meta.slug}.php ${pageHref(meta.group.key, meta.slug)} 301`)
+    .join("\n") + "\n";
+}
+
+write("assets/css/style.css", replaceLegacyAssetUrls(css + detailCss + colorHarmonyCss + marqueeCss + mobileSliderCss + brandingCss + purpleThemeCss + aboutCss + medicalCss + multiDoctorCss + panoramaCss + guideCss + liftingMainCss + mobileMenuCss + modernSiteCss + modernUpgradeCss + mobileAccordionCss + heroRedesignCss + mobileMenuRedesignCss + heroCardStackCss + heroMobileScrollCss + heroCarouselCss + quickReviewCss + menuOverlayFixCss + reviewShowcaseCss + quickContactCss + reviewPurpleCss + quickContactMobileCss));
 write("assets/js/site.js", js);
 write("index.html", home());
 for (const meta of pageMeta.values()) {
-  write(`${meta.group.key}/${meta.slug}.php`, page(meta));
+  write(`${meta.group.key}/${meta.slug}.html`, page(meta));
 }
 write("en/index.html", home());
+write("_redirects", redirects());
