@@ -3,17 +3,27 @@ const path = require("path");
 
 const root = path.resolve(__dirname, "..");
 
+const generatedVisuals = {
+  lifting: "/assets/img/generated/lifting.png",
+  chest: "/assets/img/generated/chest.png",
+  eye: "/assets/img/generated/eye.png",
+  nose: "/assets/img/generated/nose.png",
+  hair: "/assets/img/generated/hair.png",
+  body: "/assets/img/generated/body.png",
+  ultherapy: "/assets/img/generated/ultherapy.png",
+};
+
 const legacyVisualMap = {
-  "/common/img/main/section01_bgimg01.png": "/assets/img/about/chest_figureUl_img01.jpg",
-  "/common/img/main/section01_bgimg02.png": "/assets/img/about/panorama1_img04.jpg",
+  "/common/img/main/section01_bgimg01.png": generatedVisuals.lifting,
+  "/common/img/main/section01_bgimg02.png": generatedVisuals.nose,
   "/common/img/main/section01_bgimg03.png": "/assets/img/about/about_figureUl_img02.jpg",
-  "/common/img/main/section01_bgimg04.png": "/assets/img/about/chest_figureUl_img03.jpg",
-  "/common/img/main/section01_bgimg05.png": "/assets/img/about/medicalteam_art01_doctor_ydy.png",
-  "/common/img/main/section01_bgimg06.png": "/assets/img/about/about_figureUl_img06.jpg",
-  "/common/img/main/section01_bgimg07.png": "/assets/img/about/about_figureUl_img04.jpg",
-  "/common/img/main/section01_bgimg08.png": "/assets/img/about/guide_art01_bg.jpg",
+  "/common/img/main/section01_bgimg04.png": generatedVisuals.chest,
+  "/common/img/main/section01_bgimg05.png": generatedVisuals.eye,
+  "/common/img/main/section01_bgimg06.png": generatedVisuals.ultherapy,
+  "/common/img/main/section01_bgimg07.png": generatedVisuals.body,
+  "/common/img/main/section01_bgimg08.png": generatedVisuals.hair,
   "/common/img/main/section01_bgimg09.png": "/assets/img/about/panorama3_img01.jpg",
-  "/common/img/main/section01_bgimg01_m.png": "/assets/img/about/chest_figureUl_img01.jpg",
+  "/common/img/main/section01_bgimg01_m.png": generatedVisuals.lifting,
 };
 const asset = (p) => legacyVisualMap[p] || p;
 const pageHref = (groupKey, slug) => `/${groupKey}/${slug}.html`;
@@ -167,25 +177,25 @@ const highlights = [
 ];
 
 const heroImages = [
-  asset("/common/img/main/section01_bgimg01.png"),
-  asset("/common/img/main/section01_bgimg04.png"),
-  asset("/common/img/main/section01_bgimg05.png"),
-  asset("/common/img/main/section01_bgimg03.png"),
-  asset("/common/img/main/section01_bgimg02.png"),
-  asset("/common/img/main/section01_bgimg08.png"),
-  asset("/common/img/main/section01_bgimg07.png"),
-  asset("/common/img/main/section01_bgimg06.png"),
+  generatedVisuals.lifting,
+  generatedVisuals.chest,
+  generatedVisuals.eye,
+  generatedVisuals.nose,
+  generatedVisuals.hair,
+  generatedVisuals.body,
+  generatedVisuals.ultherapy,
+  "/assets/img/about/panorama3_img01.jpg",
   asset("/common/img/main/section01_bgimg09.png"),
 ];
 
 const groupImages = {
-  lifting: asset("/common/img/main/section01_bgimg01.png"),
-  chest: asset("/common/img/main/section01_bgimg04.png"),
-  eye: asset("/common/img/main/section01_bgimg05.png"),
-  nose: asset("/common/img/main/section01_bgimg02.png"),
-  hair: asset("/common/img/main/section01_bgimg08.png"),
-  body: asset("/common/img/main/section01_bgimg07.png"),
-  ultherapy: asset("/common/img/main/section01_bgimg06.png"),
+  lifting: generatedVisuals.lifting,
+  chest: generatedVisuals.chest,
+  eye: generatedVisuals.eye,
+  nose: generatedVisuals.nose,
+  hair: generatedVisuals.hair,
+  body: generatedVisuals.body,
+  ultherapy: generatedVisuals.ultherapy,
   company: asset("/common/img/main/section01_bgimg09.png"),
   community: asset("/common/img/main/section01_bgimg03.png"),
 };
@@ -193,6 +203,7 @@ const groupImages = {
 const imageFor = (key, fallbackIndex = 0) => groupImages[key] || heroImages[fallbackIndex % heroImages.length];
 const groupImageOffset = { lifting: 0, chest: 2, eye: 4, nose: 6, hair: 1, body: 3, ultherapy: 5, company: 7, community: 8 };
 function pageImageFor(meta) {
+  if (generatedVisuals[meta.group.key]) return generatedVisuals[meta.group.key];
   const pageIndex = Math.max(0, meta.group.pages.findIndex(([slug]) => slug === meta.slug));
   const offset = groupImageOffset[meta.group.key] || 0;
   return heroImages[(offset + pageIndex) % heroImages.length];
